@@ -5,15 +5,15 @@ import FakeComponent from '@/FakeComponent'
 const Result: React.FunctionComponent<{
     components: FakeComponent[]
 }> = (props) => {
-    let root = null
-    for (const component of props.components)
-        if (component.name === 'Root') {
-            root = component
+    let Root = null
+    for (const Component of props.components)
+        if (Component.name === 'Root') {
+            Root = Component
             break
         }
     return (
         <div className='result'>
-            {root ? <root.FunctionComponent /> : <div>No root</div>}
+            {Root ? <Root.FunctionComponent /> : <div>No root</div>}
         </div>
     )
 }
