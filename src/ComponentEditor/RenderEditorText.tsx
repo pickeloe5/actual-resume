@@ -1,9 +1,10 @@
 import React from 'react'
 
-import FakeComponent, {RenderFunctionChildText, RenderFunctionChildButton} from '@/FakeComponent'
+import FakeComponent from '@/FakeComponent'
+import FakeTextNode from '@/FakeComponent/FakeTextNode'
 
 const RenderEditorText: React.FunctionComponent<{
-    node: RenderFunctionChildText,
+    node: FakeTextNode,
     index: number,
     component: FakeComponent,
     setComponent(component: FakeComponent): void,
@@ -12,22 +13,22 @@ const RenderEditorText: React.FunctionComponent<{
     return (
         <div className='card'>
             Text<br />
-            {typeof props.node.state === 'string' && <>
-                Bound to state: '{props.node.state}'
+            {props.node.isBound && <>
+                Bound to state: '{props.node.boundStateName}'
                 <br />
             </>}
             <button onClick={() => {
-                props.setComponent(props.component.removeFromRender(props.index))
+                props.setComponent(props.node.remove())
             }}>Remove</button> <br />
-            {typeof props.node.state === 'string'
+            {props.node.isBound
                 ? <button onClick={() => {
-                    props.setComponent(props.component.unbind(props.index))
+                    props.setComponent(props.node.unbind())
                 }}>
                     Unbind from state
                 </button>
                 : <button onClick={() => {
                     props.selectState(name => {
-                        props.setComponent(props.component.bindToState(props.index, name))
+                        props.setComponent(props.node.bindToState(name))
                     })
                 }}>
                     Bind to state

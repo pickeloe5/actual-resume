@@ -1,6 +1,8 @@
 import React from 'react'
 
-import FakeComponent, {RenderFunctionChildText, RenderFunctionChildButton} from '@/FakeComponent'
+import FakeComponent from '@/FakeComponent'
+import FakeTextNode from '@/FakeComponent/FakeTextNode'
+import FakeButtonNode from '@/FakeComponent/FakeButtonNode'
 import RenderEditorText from './RenderEditorText'
 import RenderEditorButton from './RenderEditorButton'
 
@@ -22,14 +24,14 @@ export default class RenderEditor extends React.Component<{
             <button onClick={this.#onClickAddButton}>Add button</button><br />
             {this.props.component.renderFunction.map((it, index) => {
                 if (
-                    it instanceof RenderFunctionChildText
+                    it instanceof FakeTextNode
                 ) return <RenderEditorText key={index} index={index} node={it}
                     component={this.props.component}
                     setComponent={this.props.setComponent}
                     selectState={this.props.selectState}
                 />
                 if (
-                    it instanceof RenderFunctionChildButton
+                    it instanceof FakeButtonNode
                 ) return <RenderEditorButton key={index} index={index} node={it}
                     component={this.props.component}
                     setComponent={this.props.setComponent}

@@ -13,7 +13,7 @@ const Result: React.FunctionComponent<{
         }
     return (
         <div className='result'>
-            {Root ? <Root.FunctionComponent /> : <div>No root</div>}
+            {Root ? <Root.FunctionComponent /> : 'No root'}
         </div>
     )
 }
