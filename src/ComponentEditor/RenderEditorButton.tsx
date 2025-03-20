@@ -1,9 +1,10 @@
 import React from 'react'
 
-import FakeComponent, {RenderFunctionChildButton} from '@/FakeComponent'
+import FakeComponent from '@/FakeComponent'
+import FakeButtonNode from '@/FakeComponent/FakeButtonNode'
 
 const RenderEditorButton: React.FunctionComponent<{
-    node: RenderFunctionChildButton,
+    node: FakeButtonNode,
     index: number,
     component: FakeComponent,
     setComponent(component: FakeComponent): void,
@@ -15,27 +16,25 @@ const RenderEditorButton: React.FunctionComponent<{
             <label>
                 On click:
                 <select onChange={event => {
-                    if (event.target.value === 'increment-state') {
+                    const action = parseInt(event.target.value)
+                    if (action === FakeButtonNode.Action.INCREMENT_STATE) {
                         props.selectState(name => {
-                            props.setComponent(
-                                props.component.incrementState(
-                                    props.index,
-                                    name
-                                )
-                            )
+                            props.setComponent(props.node.incrementState(name))
                         })
+                    } else if (action === FakeButtonNode.Action.DO_NOTHING) {
+                        props.setComponent(props.node.doNothing())
                     }
-                }} defaultValue={
-                    props.node.action === 1 ? 'increment-state' : 'do-nothing'
-                }>
-                    <option value='do-nothing'>Do nothing</option>
-                    <option value='increment-state'>
+                }} defaultValue={props.node.action}>
+                    <option value={String(FakeButtonNode.Action.DO_NOTHING)}>
+                        Do nothing
+                    </option>
+                    <option value={String(FakeButtonNode.Action.INCREMENT_STATE)}>
                         Increment state
                     </option>
                 </select>
             </label>
-            {typeof props.node.state === 'string' && props.node.state.length > 0 &&
-                <><br />Name in state: {props.node.state}</>
+            {typeof props.node.incrementStateName === 'string' &&
+                <><br />Name in state: '{props.node.incrementStateName}'</>
             }
         </div>
     )

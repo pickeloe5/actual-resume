@@ -39,10 +39,14 @@ export default class Home extends React.Component<{}, {
   render() {
     return (
       <div className='page'>
-        <ComponentList components={this.state.components} selectComponent={this.#selectComponent} />
+        <ComponentList
+          components={this.state.components}
+          selectComponent={this.#selectComponent}
+        />
         <ComponentEditor
           component={this.#getSelectedComponent()}
-          setComponent={this.#setSelectedComponent} />
+          setComponent={this.#setSelectedComponent}
+        />
         <Result components={this.state.components} />
       </div>
     )
